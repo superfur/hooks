@@ -1,0 +1,15 @@
+title: Hooks
+description: A React Hooks Library
+theme: jekyll-theme-primer
+
+# GitHub Pages settings
+lsi: false
+safe: true
+source: docs
+incremental: false
+highlighter: rouge
+gist:
+  noscript: false
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge 
