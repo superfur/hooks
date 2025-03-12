@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-type UseLocalStorageOptions = {
-  serializer?: <T>(value: T) => string;
-  deserializer?: <T>(value: string) => T;
+type UseLocalStorageOptions<T> = {
+  serializer?: (value: T) => string;
+  deserializer?: (value: string) => T;
 };
 
 type UseLocalStorageReturn<T> = [
@@ -20,7 +20,7 @@ type UseLocalStorageReturn<T> = [
 export function useLocalStorage<T>(
   key: string,
   initialValue: T,
-  options: UseLocalStorageOptions = {}
+  options: UseLocalStorageOptions<T> = {}
 ): UseLocalStorageReturn<T> {
   const {
     serializer = JSON.stringify,

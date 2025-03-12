@@ -1,0 +1,43 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'website/**'
+      - 'src/**'
+      - 'package.json'
+      - '.github/workflows/deploy-docs.yml'
+  # 允许手动触发工作流
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      # 安装依赖
+      - name: Install dependencies
+        run: |
+          yarn install --frozen-lockfile
+          cd website && yarn install --frozen-lockfile
+      
+      # 构建文档
+      - name: Build website
+        run: cd website && yarn build
+
+      # 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./website/build
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com

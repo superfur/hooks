@@ -1,8 +1,8 @@
 import { createSignal, createEffect } from 'solid-js';
 
-type UseLocalStorageOptions = {
-  serializer?: <T>(value: T) => string;
-  deserializer?: <T>(value: string) => T;
+type UseLocalStorageOptions<T> = {
+  serializer?: (value: T) => string;
+  deserializer?: (value: string) => T;
 };
 
 type UseLocalStorageReturn<T> = [
@@ -20,7 +20,7 @@ type UseLocalStorageReturn<T> = [
 export function useLocalStorage<T>(
   key: string,
   initialValue: T,
-  options: UseLocalStorageOptions = {}
+  options: UseLocalStorageOptions<T> = {}
 ): UseLocalStorageReturn<T> {
   const {
     serializer = JSON.stringify,
@@ -55,7 +55,7 @@ export function useLocalStorage<T>(
 
   if (typeof window !== 'undefined') {
     const handleStorageChange = () => {
-      setStoredValue(readValue());
+      setStoredValue(() => readValue());
     };
 
     window.addEventListener('storage', handleStorageChange);

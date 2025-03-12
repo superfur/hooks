@@ -3,7 +3,9 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import babel from '@rollup/plugin-babel';
 import { dts } from 'rollup-plugin-dts';
-import pkg from './package.json' assert { type: 'json' };
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const pkg = require('./package.json');
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 const external = [...Object.keys(pkg.peerDependencies || {})];

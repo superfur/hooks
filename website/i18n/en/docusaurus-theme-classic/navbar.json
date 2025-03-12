@@ -1,0 +1,14 @@
+{
+  "title": {
+    "message": "@septem/hooks",
+    "description": "The title in the navbar"
+  },
+  "item.label.Hooks": {
+    "message": "Hooks",
+    "description": "Navbar item with label Hooks"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

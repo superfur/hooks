@@ -1,14 +1,19 @@
 import { ref, watch } from 'vue';
 
-type UseLocalStorageOptions = {
-  serializer?: <T>(value: T) => string;
-  deserializer?: <T>(value: string) => T;
+type UseLocalStorageOptions<T> = {
+  serializer?: (value: T) => string;
+  deserializer?: (value: string) => T;
 };
 
 type UseLocalStorageReturn<T> = [
-  { value: T },
+  ReturnType<typeof ref<T>>,
   (value: T | ((val: T) => T)) => void
 ];
+
+// 确保类型安全的辅助函数
+function ensureRefType<T>(value: any): any {
+  return value;
+}
 
 /**
  * Vue版本的本地存储Hook
@@ -20,7 +25,7 @@ type UseLocalStorageReturn<T> = [
 export function useLocalStorage<T>(
   key: string,
   initialValue: T,
-  options: UseLocalStorageOptions = {}
+  options: UseLocalStorageOptions<T> = {}
 ): UseLocalStorageReturn<T> {
   const {
     serializer = JSON.stringify,
@@ -65,8 +70,10 @@ export function useLocalStorage<T>(
   });
 
   const setValue = (value: T | ((val: T) => T)) => {
-    storedValue.value = value instanceof Function ? value(storedValue.value) : value;
+    const newValue = value instanceof Function ? value(storedValue.value) : value;
+    storedValue.value = newValue;
+    writeValue(newValue);
   };
 
-  return [storedValue, setValue];
+  return [ensureRefType(storedValue), setValue];
 }
