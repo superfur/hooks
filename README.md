@@ -71,6 +71,8 @@ function MyComponent() {
 - **useToggle**: A hook for managing boolean toggle states
 - **useLocalStorage**: A hook for persisting data in localStorage
 - **useClippy**: A hook for interacting with the clipboard
+- **useOnlineStatus**: A hook for tracking user's online status
+- **useDocumentTitle**: A hook for updating and managing document title
 
 ## Documentation
 
@@ -93,3 +95,86 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 中文文档
 
 [查看中文文档](./README.zh-CN.md)
+
+### useToggle
+
+切换布尔值状态的钩子。
+A hook for toggling boolean state.
+
+### useOnlineStatus
+
+跟踪用户在线状态的钩子。
+A hook for tracking user's online status.
+
+### useDocumentTitle
+
+用于更新和管理文档标题的钩子。
+A hook for updating and managing document title.
+
+#### React 示例 / React Example
+
+```jsx
+import { useDocumentTitle } from '@your-org/hooks/react';
+
+function ProfilePage({ username }) {
+  // 设置文档标题，组件卸载时会恢复原始标题
+  // Set document title, will restore original title on unmount
+  useDocumentTitle(`${username}的个人资料 | My App`);
+
+  // 设置文档标题并在组件卸载时保留设置的标题
+  // Set document title and keep it when component unmounts
+  // useDocumentTitle(`${username}的个人资料 | My App`, true);
+  
+  return <div>个人资料内容</div>;
+}
+```
+
+#### Vue 示例 / Vue Example
+
+```vue
+<script setup>
+import { ref } from 'vue';
+import { useDocumentTitle } from '@your-org/hooks/vue';
+
+// 使用静态标题
+// Use static title
+useDocumentTitle('新页面标题 | My App');
+
+// 使用响应式标题
+// Use reactive title
+const title = ref('初始标题');
+useDocumentTitle(title);
+
+// 5秒后更新标题
+// Update title after 5 seconds
+setTimeout(() => {
+  title.value = '更新后的标题';
+}, 5000);
+</script>
+```
+
+#### Solid 示例 / Solid Example
+
+```jsx
+import { createSignal } from 'solid-js';
+import { useDocumentTitle } from '@your-org/hooks/solid';
+
+function App() {
+  // 基本用法
+  // Basic usage
+  useDocumentTitle('页面标题 | My App');
+  
+  // 使用信号
+  // Using signal
+  const [title, setTitle] = createSignal('初始标题');
+  useDocumentTitle(title);
+  
+  return (
+    <div>
+      <button onClick={() => setTitle('更新后的标题')}>
+        更新标题
+      </button>
+    </div>
+  );
+}
+```

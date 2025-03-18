@@ -3,8 +3,10 @@ import { useClippy } from '../useClippy';
 
 // 模拟navigator.clipboard API
 const mockClipboard = {
-  readText: jest.fn(),
-  writeText: jest.fn(),
+  readText: jest.fn().mockResolvedValue(''),
+  writeText: jest.fn().mockResolvedValue(undefined),
+  addEventListener: jest.fn(),
+  removeEventListener: jest.fn(),
 };
 
 // 模拟document.execCommand

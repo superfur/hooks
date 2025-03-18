@@ -185,30 +185,31 @@ export function useClippy(initialValue = ''): ClipboardTuple {
   }, []);
 
   // Try to read synchronously.
-  useLayoutEffect((): void => {
+  useLayoutEffect(() => {
+    let mounted = true;
+
+    // 同步读取
     try {
       const text: string = read();
-      if (clipboard !== text) {
+      if (mounted && clipboard !== text) {
         setClipboard(text);
+      }
+    } catch (_syncErr) {
+      // 如果同步读取失败，尝试异步读取
+      if (isClipboardApiEnabled(navigator)) {
+        navigator.clipboard.readText().then(text => {
+          if (mounted && clipboard !== text) {
+            setClipboard(text);
+          }
+        }).catch(_asyncErr => {
+          console.error('Failed to read to clipboard:', _asyncErr);
+        });
       }
     }
 
-    // If synchronous reading is disabled, try to read asynchronously.
-    catch (_syncErr) {
-      if (isClipboardApiEnabled(navigator)) {
-        (async (): Promise<void> => {
-          try {
-            const text: string = await navigator.clipboard.readText();
-            if (clipboard !== text) {
-              setClipboard(text);
-            }
-          }
-          catch (_asyncErr) {
-            console.error('Failed to read to clipboard:', _asyncErr);
-          }
-        })();
-      }
-    }
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return [clipboard, syncClipboard];

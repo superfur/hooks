@@ -1,4 +1,4 @@
-import { createSignal, createEffect } from 'solid-js';
+import { createSignal } from 'solid-js';
 
 type UseLocalStorageOptions<T> = {
   serializer?: (value: T) => string;
@@ -62,13 +62,10 @@ export function useLocalStorage<T>(
     window.addEventListener('local-storage', handleStorageChange);
   }
 
-  createEffect(() => {
-    writeValue(storedValue());
-  });
-
   const setValue = (value: T | ((val: T) => T)) => {
     const newValue = value instanceof Function ? value(storedValue()) : value;
     setStoredValue(() => newValue);
+    writeValue(newValue);
   };
 
   return [storedValue, setValue];

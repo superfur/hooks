@@ -1,3 +1,5 @@
+import { mount } from '@vue/test-utils';
+import { defineComponent, nextTick } from 'vue';
 import { useClippy } from '../useClippy';
 
 // 模拟navigator.clipboard API

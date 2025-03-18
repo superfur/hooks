@@ -1,3 +1,5 @@
+import { mount } from '@vue/test-utils';
+import { defineComponent, nextTick } from 'vue';
 import { useLocalStorage } from '../useLocalStorage';
 
 // 模拟localStorage

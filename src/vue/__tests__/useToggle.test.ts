@@ -1,3 +1,5 @@
+import { mount } from '@vue/test-utils';
+import { defineComponent, h } from 'vue';
 import { useToggle } from '../useToggle';
 
 describe('useToggle (Vue)', () => {

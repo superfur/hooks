@@ -1,4 +1,8 @@
-// Vue hooks 导出
+// Vue composables 导出
 export * from './useToggle';
 export * from './useLocalStorage';
-export * from './useClippy';
+export { useClippy } from './useClippy';
+export { useWindowCommunication } from './useWindowCommunication';
+export { useSpeechSynthesis } from './useSpeechSynthesis';
+export { useOnlineStatus } from './useOnlineStatus';
+export { useDocumentTitle } from './useDocumentTitle';

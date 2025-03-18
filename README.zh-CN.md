@@ -71,10 +71,77 @@ function MyComponent() {
 - **useToggle**: 用于管理布尔切换状态的 hook
 - **useLocalStorage**: 用于在 localStorage 中持久化数据的 hook
 - **useClippy**: 用于与剪贴板交互的 hook
+- **useOnlineStatus**: 用于跟踪用户在线状态的 hook
+- **useDocumentTitle**: 用于更新和管理文档标题的 hook
 
 ## 文档
 
 有关详细文档和示例，请访问我们的[文档网站](https://your-docs-site.com)。
+
+### useDocumentTitle
+
+用于更新和管理文档标题的钩子。
+
+#### React 示例
+
+```jsx
+import { useDocumentTitle } from '@your-org/hooks/react';
+
+function ProfilePage({ username }) {
+  // 设置文档标题，组件卸载时会恢复原始标题
+  useDocumentTitle(`${username}的个人资料 | My App`);
+
+  // 设置文档标题并在组件卸载时保留设置的标题
+  // useDocumentTitle(`${username}的个人资料 | My App`, true);
+  
+  return <div>个人资料内容</div>;
+}
+```
+
+#### Vue 示例
+
+```vue
+<script setup>
+import { ref } from 'vue';
+import { useDocumentTitle } from '@your-org/hooks/vue';
+
+// 使用静态标题
+useDocumentTitle('新页面标题 | My App');
+
+// 使用响应式标题
+const title = ref('初始标题');
+useDocumentTitle(title);
+
+// 5秒后更新标题
+setTimeout(() => {
+  title.value = '更新后的标题';
+}, 5000);
+</script>
+```
+
+#### Solid 示例
+
+```jsx
+import { createSignal } from 'solid-js';
+import { useDocumentTitle } from '@your-org/hooks/solid';
+
+function App() {
+  // 基本用法
+  useDocumentTitle('页面标题 | My App');
+  
+  // 使用信号
+  const [title, setTitle] = createSignal('初始标题');
+  useDocumentTitle(title);
+  
+  return (
+    <div>
+      <button onClick={() => setTitle('更新后的标题')}>
+        更新标题
+      </button>
+    </div>
+  );
+}
+```
 
 ## 贡献
 
