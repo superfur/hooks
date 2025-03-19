@@ -26,6 +26,9 @@ pnpm add @septem/hooks
 - [useToggle](./useToggle.md) - 用于管理布尔切换状态
 - [useLocalStorage](./useLocalStorage.md) - 用于在 localStorage 中持久化数据
 - [useClippy](./useClippy.md) - 用于与剪贴板交互
+- [useOnlineStatus](./useOnlineStatus.md) - 用于跟踪用户在线状态
+- [useDocumentTitle](./useDocumentTitle.md) - 用于更新和管理文档标题
+- [useWindowCommunication](./useWindowCommunication.md) - 用于跨窗口通信
 
 ## 使用方式
 
