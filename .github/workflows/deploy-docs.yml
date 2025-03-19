@@ -26,8 +26,8 @@ jobs:
       # 安装依赖
       - name: Install dependencies
         run: |
-          yarn install --frozen-lockfile
-          cd website && yarn install --frozen-lockfile
+          yarn install
+          cd website && yarn install
       
       # 构建文档
       - name: Build website
