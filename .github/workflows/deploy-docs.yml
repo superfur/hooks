@@ -9,8 +9,14 @@ on:
       - 'src/**'
       - 'package.json'
       - '.github/workflows/deploy-docs.yml'
+      - 'yarn.lock'
   # 允许手动触发工作流
   workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
@@ -43,3 +49,4 @@ jobs:
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
           # 禁用Jekyll处理
           disable_nojekyll: false
+          force_orphan: true
