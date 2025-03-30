@@ -68,11 +68,12 @@ function MyComponent() {
 
 ## 可用的 Hooks
 
-- **useToggle**: 用于管理布尔切换状态的 hook
-- **useLocalStorage**: 用于在 localStorage 中持久化数据的 hook
-- **useClippy**: 用于与剪贴板交互的 hook
-- **useOnlineStatus**: 用于跟踪用户在线状态的 hook
-- **useDocumentTitle**: 用于更新和管理文档标题的 hook
+- **useToggle**: 用于管理布尔值切换状态的钩子
+- **useLocalStorage**: 用于在 localStorage 中持久化数据的钩子
+- **useClippy**: 用于与剪贴板交互的钩子
+- **useOnlineStatus**: 用于跟踪用户在线状态的钩子
+- **useDocumentTitle**: 用于更新和管理文档标题的钩子
+- **useDelay**: 用于延迟执行的钩子
 
 ## 文档
 
