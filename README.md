@@ -74,6 +74,7 @@ function MyComponent() {
 - **useOnlineStatus**: A hook for tracking user's online status
 - **useDocumentTitle**: A hook for updating and managing document title
 - **useDelay**: A hook for delayed execution
+- **useFocus**: A hook for focusing HTML elements
 
 ## Documentation
 

@@ -74,6 +74,7 @@ function MyComponent() {
 - **useOnlineStatus**: 用于跟踪用户在线状态的钩子
 - **useDocumentTitle**: 用于更新和管理文档标题的钩子
 - **useDelay**: 用于延迟执行的钩子
+- **useFocus**: 用于聚焦 HTML 元素的钩子
 
 ## 文档
 

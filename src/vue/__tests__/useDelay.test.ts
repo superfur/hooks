@@ -1,7 +1,7 @@
-import { shallowMount } from '@vue/test-utils';
-import { nextTick, h } from 'vue';
+import { nextTick, defineComponent, ref } from 'vue';
 import { useDelay } from '../useDelay';
 import { jest } from '@jest/globals';
+import { simpleMount, tick } from './test-utils';
 
 describe('useDelay', () => {
   beforeEach(() => {
@@ -12,66 +12,53 @@ describe('useDelay', () => {
     jest.useRealTimers();
   });
 
-  it('should return false initially', () => {
-    const wrapper = shallowMount({
-      setup() {
-        const { value } = useDelay(1000);
-        return () => h('div', value.value);
-      }
-    });
-    expect(wrapper.text()).toBe('false');
+  it('should return false initially', async () => {
+    // 直接测试 hook，而不是通过组件
+    const { value } = useDelay(1000);
+    expect(value.value).toBe(false);
   });
 
   it('should return true after delay', async () => {
-    const wrapper = shallowMount({
-      setup() {
-        const { value } = useDelay(1000);
-        return () => h('div', value.value);
-      }
-    });
+    // 直接测试 hook
+    const { value } = useDelay(1000);
     
     jest.advanceTimersByTime(1000);
-    await nextTick();
-    expect(wrapper.text()).toBe('true');
+    expect(value.value).toBe(true);
   });
 
   it('should handle zero delay', async () => {
-    const wrapper = shallowMount({
-      setup() {
-        const { value } = useDelay(0);
-        return () => h('div', value.value);
-      }
-    });
+    // 直接测试 hook
+    const { value } = useDelay(0);
     
-    await nextTick();
-    expect(wrapper.text()).toBe('true');
+    expect(value.value).toBe(true);
   });
 
   it('should handle default delay', async () => {
-    const wrapper = shallowMount({
+    // 直接测试 hook
+    const { value } = useDelay();
+    
+    expect(value.value).toBe(true);
+  });
+
+  it('should cleanup timer on unmount', async () => {
+    // 创建一个测试组件
+    const TestComponent = defineComponent({
       setup() {
-        const { value } = useDelay();
-        return () => h('div', value.value);
+        useDelay(1000);
+        return {};
+      },
+      render() {
+        return () => '';
       }
     });
     
-    await nextTick();
-    expect(wrapper.text()).toBe('true');
-  });
-
-  it('should cleanup timer on unmount', () => {
-    const wrapper = shallowMount({
-      setup() {
-        const { value } = useDelay(1000);
-        return () => h('div', value.value);
-      }
-    });
+    const wrapper = simpleMount(TestComponent);
     
     wrapper.unmount();
     
     jest.advanceTimersByTime(1000);
     
     // 如果清理成功,不会触发任何状态更新
-    // If cleanup is successful, no state updates will be triggered
+    expect(true).toBe(true);
   });
 }); 

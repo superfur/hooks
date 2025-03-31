@@ -1,6 +1,6 @@
 {
   "name": "@septem/hooks",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A hooks library compatible with React, Vue 3, and SolidJS",
   "type": "module",
   "main": "dist/index.js",
